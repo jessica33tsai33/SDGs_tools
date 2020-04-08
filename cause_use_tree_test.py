@@ -24,24 +24,42 @@ def creat_var_list(var):
         return varlist
 
 
+def check_var(varList, var):
+    check = False
+    for i in range(len(varList)):
+        if var == varList[i]:
+            check = True
+
+    return check
+
 vensim.load_model(r"C://Users//Tsai Jessica//NTU//sdlab//SDGs_tools//class1_water1.vpm")
 
 factor = "outflow"
-cause = 4
-use = 5
+attrib = 4  # 4：cause variable, 5：use variable
+
+
+varList = []
+tempVarList = []
 resultList = []
 
-a = creat_var_list(venDLL.get_varattrib(factor, cause))
-resultList.append(a)
+tempVarList = creat_var_list(venDLL.get_varattrib(factor, attrib))
+for i in range(len(tempVarList)):
+    varList.append(tempVarList[i])
 
-print(len(a))
+resultList.append(len(tempVarList))
 
-stop = False
-i = 0
+while len(tempVarList) != 0:
+        tempList = creat_var_list(venDLL.get_varattrib(tempVarList[0], attrib))
+        
+        resultList.append(len(tempList))
+        for i in range(len(tempList)):
+            if check_var(varList, tempList[0]) == False:
+                tempVarList.append(tempList[i])
+                varList.append(tempList[i])
+        
+        tempVarList.pop(0)
+        
+            
 
-while stop == False:
-    if len(a) == 0:
-        stop = True
-    else:
-        factor = a[i]
-        #resultList.append(creat_var_list(venDLL.get_varattrib(factor, cause)))
+print(varList)
+print(resultList)
