@@ -25,6 +25,7 @@ def creat_var_list(var):
 
 
 def check_var(varList, var):
+    """ 確認因子有無重複 """
     check = False
     for i in range(len(varList)):
         if var == varList[i]:
@@ -32,34 +33,39 @@ def check_var(varList, var):
 
     return check
 
-vensim.load_model(r"C://Users//Tsai Jessica//NTU//sdlab//SDGs_tools//class1_water1.vpm")
+def creatVariableTree(model, factor, attrib):
+    """
+    建立因子的 cause/use tree list
+    attrib - 4：cause variable, 5：use variable
+    """
+    vensim.load_model(model)
+    varList = []
+    tempVarList = []
+    resultList = []
+    tempVarList = creat_var_list(venDLL.get_varattrib(factor, attrib))
+    for i in range(len(tempVarList)):
+        varList.append(tempVarList[i])
+
+    resultList.append(len(tempVarList))
+
+    while len(tempVarList) != 0:
+        tempList = creat_var_list(venDLL.get_varattrib(tempVarList[0], attrib))
+        resultList.append(len(tempList))
+        for i in range(len(tempList)):
+            if check_var(varList, tempList[i]) == False:
+                tempVarList.append(tempList[i])
+                varList.append(tempList[i])
+        
+        tempVarList.pop(0)
+    
+    return (varList, resultList)
+
 
 factor = "outflow"
 attrib = 4  # 4：cause variable, 5：use variable
 
 
-varList = []
-tempVarList = []
-resultList = []
+model = "C://Users//Tsai Jessica//NTU//sdlab//SDGs_tools//class1_water1.vpm"
+a = creatVariableTree(model, factor, attrib)
 
-tempVarList = creat_var_list(venDLL.get_varattrib(factor, attrib))
-for i in range(len(tempVarList)):
-    varList.append(tempVarList[i])
-
-resultList.append(len(tempVarList))
-
-while len(tempVarList) != 0:
-        tempList = creat_var_list(venDLL.get_varattrib(tempVarList[0], attrib))
-        
-        resultList.append(len(tempList))
-        for i in range(len(tempList)):
-            if check_var(varList, tempList[0]) == False:
-                tempVarList.append(tempList[i])
-                varList.append(tempList[i])
-        
-        tempVarList.pop(0)
-        
-            
-
-print(varList)
-print(resultList)
+print(a[0])
