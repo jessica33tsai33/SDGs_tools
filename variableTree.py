@@ -39,12 +39,12 @@ def creatVariableTree(model, factor, attrib):
     attrib - 4：cause variable, 5：use variable
     """
     vensim.load_model(model)
-    varList = []
-    tempVarList = []
-    resultList = []
+    varList = []  # 最終因子List
+    tempVarList = []  # 暫存因子List
+    resultList = []  # 子因子個數List
+    tempList = []  # 每個因子的關係子因子List
     tempVarList = creat_var_list(venDLL.get_varattrib(factor, attrib))
-    for i in range(len(tempVarList)):
-        varList.append(tempVarList[i])
+    varList += tempVarList
 
     resultList.append(len(tempVarList))
 
@@ -52,20 +52,27 @@ def creatVariableTree(model, factor, attrib):
         tempList = creat_var_list(venDLL.get_varattrib(tempVarList[0], attrib))
         resultList.append(len(tempList))
         for i in range(len(tempList)):
-            if check_var(varList, tempList[i]) == False:
+            if check_var(varList, tempList[i]) == True:    
+                varList.append(tempList[i])
+
+            else:
                 tempVarList.append(tempList[i])
                 varList.append(tempList[i])
-        
+
         tempVarList.pop(0)
     
     return (varList, resultList)
 
 
-factor = "outflow"
+factor = '"16.b"'
 attrib = 4  # 4：cause variable, 5：use variable
 
 
-model = "C://Users//Tsai Jessica//NTU//sdlab//SDGs_tools//class1_water1.vpm"
+model = "C://Users//Tsai Jessica//NTU//sdlab//SDGs_tools//SDGs linkage_SDG 1_3.vpm"
 a = creatVariableTree(model, factor, attrib)
 
 print(a[0])
+print(a[1])
+
+print(len(a[0]))
+print(sum(a[1]))
