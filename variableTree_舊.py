@@ -8,6 +8,7 @@ Created on Tue Mar 31 23:51:40 2020
 from ema_workbench.connectors import vensim
 from ema_workbench.connectors import vensimDLLwrapper as venDLL
 
+
 def creat_var_list(var):
     """ 整理 get_varattrib 函式所產出的因子list """
     varlist = []
@@ -49,15 +50,19 @@ def creatVariableTree(model, factor, attrib):
     resultList.append(len(tempVarList))
 
     while len(tempVarList) != 0:
-        tempList = creat_var_list(venDLL.get_varattrib(tempVarList[0], attrib))
-        resultList.append(len(tempList))
-        for i in range(len(tempList)):
-            if check_var(varList, tempList[i]) == True:    
-                varList.append(tempList[i])
+        if tempVarList[0] == 0:
+            resultList.append(0)
+        else:
+            tempList = creat_var_list(venDLL.get_varattrib(tempVarList[0], attrib))
+            resultList.append(len(tempList))
+            for i in range(len(tempList)):
+                if check_var(varList, tempList[i]) == True:    
+                    varList.append(tempList[i])
+                    tempVarList.append(0)
 
-            else:
-                tempVarList.append(tempList[i])
-                varList.append(tempList[i])
+                else:
+                    tempVarList.append(tempList[i])
+                    varList.append(tempList[i])
 
         tempVarList.pop(0)
     
@@ -75,4 +80,4 @@ print(a[0])
 print(a[1])
 
 print(len(a[0]))
-print(sum(a[1]))
+print(len(a[1]))
