@@ -13,13 +13,13 @@ var color = d3.scaleOrdinal().range(["firebrick", "forestgreen", "lightsteelblue
 var head = document.getElementById("heading");
 
 function useFile() {
-    filename = "analysis_pdf_and_linkageData/finalData_use.json";
+    filename = "finalData_use.json";
     useOrcause = "use";
     postData();
 }
 
 function causeFile() {
-    filename = "analysis_pdf_and_linkageData/finalData_cause.json";
+    filename = "finalData_cause.json";
     useOrcause = "cause";
     postData();
 }
