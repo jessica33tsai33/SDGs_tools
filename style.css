@@ -6,6 +6,7 @@ body{
 
 .links line {
   stroke: #999;
+  stroke-width:1px;
   stroke-opacity: 0.6;
 }
 

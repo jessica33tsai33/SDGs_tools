@@ -45,22 +45,22 @@ def find_links(sdg_target, varList, valueList, attrib):
             subLink['target'] = str(varList[i])
             subLink['value'] = valueList[i]
             if float(valueList[i]) > 0:
-                subLink['relation'] = "positive"
+                subLink['relation'] = 1  # 正關係為1
             elif float(valueList[i]) < 0 and float(valueList[i]) != -100:
-                subLink['relation'] = "negative"
+                subLink['relation'] = 2  # 負關係為2
             else:
-                subLink['relation'] = "neutral"
+                subLink['relation'] = 0  # 無關係為0
 
         elif attrib == "use":
             subLink['source'] = str(varList[i])
             subLink['target'] = sdg_target
             subLink['value'] = valueList[i]
             if float(valueList[i]) > 0:
-                subLink['relation'] = "positive"
+                subLink['relation'] = 1  # 正關係為1
             elif float(valueList[i]) < 0 and float(valueList[i]) != -100:
-                subLink['relation'] = "negative"
+                subLink['relation'] = 2  # 負關係為2
             else:
-                subLink['relation'] = "neutral"
+                subLink['relation'] = 0  # 無關係為0
 
         links.append(subLink)
 
