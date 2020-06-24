@@ -14,6 +14,30 @@ var color = d3.scaleOrdinal().range(["firebrick", "forestgreen", "lightsteelblue
 var colorLink = d3.scaleOrdinal().range(["#808080", "blue", "red"]);
 var head = document.getElementById("heading");
 
+$(function() {
+    console.log("In!");
+    inputValue();
+
+})
+
+function inputValue() {
+    try {
+        console.log("In2!");
+        //URL
+        var url = location.href;
+        //取得問號之後的值
+        var temp = url.split("?");
+        var values = temp[1].split("=");
+        var value = values[1];
+        document.getElementById("SDG_Input").setAttribute("value", value);
+        console.log(value)
+    }
+    catch(exception){
+        console.log("In3!");
+    }
+}
+
+
 function useFile() {
     filename = "finalData_use.json";
     useOrcause = "use";

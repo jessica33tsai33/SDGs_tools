@@ -1,8 +1,8 @@
 /* Styles go here */
 
-body{
+/*body{
 	background-color: #e0ffe2;
-}
+}*/
 
 .links line {
   stroke: #999;
@@ -31,4 +31,68 @@ body{
 
 .heading{
 	text-align: center;
+}
+
+.goalSelection{
+	margin-top: 30px;
+	margin-left: 70px;
+	margin-right: 20px;
+}
+
+.goal{
+	margin-top: 10px;
+	margin-left: 5px;
+	cursor: pointer;
+}
+
+.goal1{
+	margin-top: 10px;
+	margin-left: 5px;
+}
+
+.targetSelection{
+	margin-top: 30px;
+	margin-left: 35px;
+}
+
+.target{
+	margin-top: 10px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.navbar{
+	background-color: #e0ffe2;
+	padding: 5px 50px 5px 50px;
+}
+
+.navbar ul{
+	display: inline-block;
+	text-align: left;
+}
+
+.navbar ul li{
+	display: inline-block;
+	margin-right: 20px;
+}
+
+.jumbotron{
+	background-image: url(img/junbotron.png);
+	background-position: center;
+}
+
+.jumbotron-container{
+	margin-top: 0px;
+}
+
+.display-4{
+	font-weight: bold;
+}
+
+.authority{
+	margin-top: 50px;
+}
+
+th{
+	width: 80px;
 }

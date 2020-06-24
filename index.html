@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="utf-8">
-    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>SDGs Interaction</title>
@@ -14,20 +13,33 @@
 </head>
 
 <body>
-    <div class="container">
-        <ul class="nav nav-tabs justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link active" href="index.html">權責單位</a>
+    <nav class="navbar navbar-light">
+        <div class="navbar-header">
+            <a href="index.html" class="navbar-brand">
+                <img src="img/SDLab_Logo.png" width="40">
+                關鍵子目標互動系統
+            </a>
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="allGoalsAndTargets.html">子目標鑑別</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="analysis.html">因子分析與子目標連結</a>
+                <a class="nav-link" href="authority.html">Start Using!</a>
             </li>
         </ul>
-        <svg width="1100" height="500"></svg>
-        <script src="Goal_linkage.js"></script>
+    </nav>
+    <div class="container jumbotron-container">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-4">關鍵子目標互動系統</h1>
+            </div>
+        </div>
+        <hr class="my-4">
+        <p>為了讓您了解SDGs之間如何互相影響，本介面工具「關鍵子目標互動系統」藉由以下幾個功能，幫助您找尋和您所關心的SDGs子目標之相關內容，並且深入理解其實際內涵，以便於促進決策過程中相關SDGs子目標間的協同作用，減少權衡關係：</p>
+        <p>在「權責單位」的頁面，您可以看見17個SDGs的連結關係以及各自對應的中央政府負責單位，可由該單位查詢相關政策推動與執行的情況。</p>
+        <p>「子目標鑑別」頁面中，您可以先由17個SDGs挑選最符合您需求的目標，再從進一步顯示出數個屬於該SDG的子目標裡頭，點選最貼近的描述，來決定您所關心之議題的「關鍵子目標」。</p>
+        <p>最後就會在「子目標互動」的頁面看見您的關鍵子目標與其他SDGs子目標互動的情況，藉此了解子目標間正負影響差異。可以點擊「Use Tree」查看關鍵子目標對其他SDGs子目標造成的互動；點擊「Cause Tree」查看關鍵子目標受到其他子目標之影響；點擊互動系統圖中任一子目標，即可得到該子目標成為關鍵子目標的情況。</p>
     </div>
 </body>
 

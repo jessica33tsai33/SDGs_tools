@@ -14,10 +14,26 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-light">
+        <div class="navbar-header">
+            <a href="index.html" class="navbar-brand">
+                <img src="img/SDLab_Logo.png" width="40">
+                關鍵子目標互動系統
+            </a>
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="authority.html">Start Using!</a>
+            </li>
+        </ul>
+    </nav>
     <div class="container">
         <ul class="nav nav-tabs justify-content-end">
             <li class="nav-item">
-                <a class="nav-link" href="index.html">權責單位</a>
+                <a class="nav-link" href="authority.html">權責單位</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="allGoalsAndTargets.html">子目標鑑別</a>
@@ -26,6 +42,30 @@
                 <a class="nav-link" href="analysis.html">因子分析與子目標連結</a>
             </li>
         </ul>
+        <div class="goalSelection">
+            <p>請選擇相關的 SDG 目標：</p>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-01.jpg" width="150" class="goal" id="1" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-02.jpg" width="150" class="goal" id="2" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-03.jpg" width="150" class="goal" id="3" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-04.jpg" width="150" class="goal" id="4" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-05.jpg" width="150" class="goal" id="5" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-06.jpg" width="150" class="goal" id="6" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-07.jpg" width="150" class="goal" id="7" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-08.jpg" width="150" class="goal" id="8" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-09.jpg" width="150" class="goal" id="9" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-10.jpg" width="150" class="goal" id="10" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-11.jpg" width="150" class="goal" id="11" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-12.jpg" width="150" class="goal" id="12" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-13.jpg" width="150" class="goal" id="13" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-14.jpg" width="150" class="goal" id="14" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-15.jpg" width="150" class="goal" id="15" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-16.jpg" width="150" class="goal" id="16" onclick="findTarget(this)"></a>
+            <a href="#targetSelection"><img src="img/goal/E_SDG goals_icons-individual-cmyk-17.jpg" width="150" class="goal" id="17" onclick="findTarget(this)"></a>
+            <img src="img/goal/E_SDG_logo_No UN Emblem_square_cmyk.jpg" width="150" class="goal1" id="18">
+        </div>
+        <div class="targetSelection" id="targetSelection">
+            <script type="text/javascript" src="goalToTarget.js"></script>
+        </div>
     </div>
 </body>
 
