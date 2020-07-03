@@ -1,7 +1,7 @@
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height"),
-    //filename = "finalData_",
+    filename = "finalData.json",
     useOrcause = "",
     headContext = "",
     index;
@@ -31,21 +31,20 @@ function inputValue() {
         var value = values[1];
         document.getElementById("SDG_Input").setAttribute("value", value);
         console.log(value)
-    }
-    catch(exception){
+    } catch (exception) {
         console.log("In3!");
     }
 }
 
 
 function useFile() {
-    filename = "finalData_use.json";
+    //filename = "finalData_use.json";
     useOrcause = "use";
     postData();
 }
 
 function causeFile() {
-    filename = "finalData_cause.json";
+    //filename = "finalData_cause.json";
     useOrcause = "cause";
     postData();
 }
@@ -55,8 +54,6 @@ function postData() {
     document.getElementById("heading").innerText = "";
 
     window.sdgTarget = document.getElementById("SDG_Input").value;
-    //alert("你輸入的使用者帳號為：" + window.username + '\n' + "已輸入密碼：" + window.password);
-    //index = findIndex(window.sdgTarget);
     if (useOrcause == "use") {
         drawUse(findIndex(window.sdgTarget), sdgTarget);
     } else if (useOrcause == "cause") {
@@ -82,157 +79,19 @@ function drawUse(index, sdgTarget) {
 
     console.log("index =", index);
 
-    headContext = "Use Tree of SDG " + sdgTarget;
-    var h3 = document.createElement('h3');
-    h3.innerHTML = headContext;
-    head.appendChild(h3);
+    if (index == null) {
+        headContext = "Wrong SDG Target! Please check and fill again.";
+        var h3 = document.createElement('h3');
+        h3.innerHTML = headContext;
+        h3.setAttribute("style", "color: red");
+        head.appendChild(h3);
+    } else {
+        headContext = "Use Tree of SDG " + sdgTarget;
+        var h3 = document.createElement('h3');
+        h3.innerHTML = headContext;
+        head.appendChild(h3);
+    }
 
-    var svg = d3.selectAll(".container").append("svg")
-        .attr("width", 1100)
-        .attr("height", 800);
-
-    svg.append('defs')
-        .append('marker')
-        .attr('id', "arrow0")
-        .attr('viewBox', '-0 -5 10 10')
-        .attr('refX', 23)
-        .attr('refY', 0)
-        .attr('orient', 'auto')
-        .attr('markerWidth', 10)
-        .attr('markerHeight', 10)
-        .attr('xoverflow', 'visible')
-        .append('svg:path')
-        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-        .attr('fill', colorLink(0))
-        .style('stroke', 'none');
-
-    svg.append('defs')
-        .append('marker')
-        .attr('id', "arrow1")
-        .attr('viewBox', '-0 -5 10 10')
-        .attr('refX', 23)
-        .attr('refY', 0)
-        .attr('orient', 'auto')
-        .attr('markerWidth', 10)
-        .attr('markerHeight', 10)
-        .attr('xoverflow', 'visible')
-        .append('svg:path')
-        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-        .attr('fill', colorLink(1))
-        .style('stroke', 'none');
-
-    svg.append('defs')
-        .append('marker')
-        .attr('id', "arrow2")
-        .attr('viewBox', '-0 -5 10 10')
-        .attr('refX', 23)
-        .attr('refY', 0)
-        .attr('orient', 'auto')
-        .attr('markerWidth', 10)
-        .attr('markerHeight', 10)
-        .attr('xoverflow', 'visible')
-        .append('svg:path')
-        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-        .attr('fill', colorLink(2))
-        .style('stroke', 'none');
-
-    d3.json(filename, function(error, graph) {
-        if (error) throw error;
-
-        var simulation = d3.forceSimulation()
-            .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(100))
-            .force("charge", d3.forceManyBody())
-            .force("center", d3.forceCenter(graph.factors_use[index].nodes[0].x, graph.factors_use[index].nodes[0].y))
-            .force("attraceForce", d3.forceManyBody().strength(-250))
-            .alphaMin(1);
-
-        var link = svg.append("g")
-            .attr("class", "links")
-            .selectAll("line")
-            .data(graph.factors_use[index].links)
-            .enter().append("line")
-            .attr('marker-end', function(d) { return "url(#arrow" + d.relation + ")"; })
-            .style("stroke", function(d) { return colorLink(d.relation); });
-
-        var node = svg.append("g")
-            .attr("class", "nodes")
-            .selectAll("circle")
-            .data(graph.factors_use[index].nodes)
-            .enter().append("circle")
-            .attr("r", 13)
-            .attr("fill", "#fff")
-            .style("stroke-width", 2)
-            .style("stroke", function(d) { return color(d.group + 1); });
-
-        // This is the label for each node
-        var text = svg.append("g").selectAll("text")
-            .data(graph.factors_use[index].nodes)
-            .enter().append("text")
-            .attr("dx", 0)
-            .attr("dy", 3)
-            .attr("font-size", "10px")
-            .text(function(d) { return d.id; })
-            .attr("text-anchor", "middle");
-
-        const edgepaths = svg.selectAll(".edgepath") //make path go along with the link provide position for link labels
-            .data(graph.factors_use[index].links)
-            .enter()
-            .append('path')
-            .attr('class', 'edgepath')
-            .attr('fill-opacity', 0)
-            .attr('stroke-opacity', 0)
-            .attr('id', function(d, i) { return 'edgepath' + i })
-            .style("pointer-events", "none");
-
-        node.append("title")
-            .text(function(d) { return d.id; });
-
-        simulation
-            .nodes(graph.factors_use[index].nodes)
-            .on("tick", ticked);
-
-        simulation
-            .force("link")
-            .links(graph.factors_use[index].links);
-
-        function ticked() {
-            graph.factors_use[index].nodes[0].fx = 0;
-            graph.factors_use[index].nodes[0].fy = 0;
-
-            link
-                .attr("x1", function(d) { return d.source.x; })
-                .attr("y1", function(d) { return d.source.y; })
-                .attr("x2", function(d) { return d.target.x; })
-                .attr("y2", function(d) { return d.target.y; })
-                .attr("transform", function(d) {
-                    return "translate(" + width / 2 + "," + height / 2 + ")";
-                });
-
-            node
-                .attr("cx", function(d) { return d.x; })
-                .attr("cy", function(d) { return d.y; })
-                .attr("transform", function(d) {
-                    return "translate(" + width / 2 + "," + height / 2 + ")";
-                });
-            text
-                .attr("x", function(d) { return d.x; })
-                .attr("y", function(d) { return d.y; })
-                .attr("transform", function(d) {
-                    return "translate(" + width / 2 + "," + height / 2 + ")";
-                });
-            edgepaths.attr('d', d => 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y);
-        }
-    });
-}
-
-function drawCause(index, sdgTarget) {
-
-    console.log("index =", index);
-
-    headContext = "Cause Tree of SDG " + sdgTarget;
-    var h3 = document.createElement('h3');
-    h3.innerHTML = headContext;
-    head.appendChild(h3);
 
     var svg = d3.selectAll(".container").append("svg")
         .attr("width", 1100)
@@ -321,6 +180,16 @@ function drawCause(index, sdgTarget) {
             .text(function(d) { return d.id; })
             .attr("text-anchor", "middle");
 
+        const edgepaths = svg.selectAll(".edgepath") //make path go along with the link provide position for link labels
+            .data(graph.factors_cause[index].links)
+            .enter()
+            .append('path')
+            .attr('class', 'edgepath')
+            .attr('fill-opacity', 0)
+            .attr('stroke-opacity', 0)
+            .attr('id', function(d, i) { return 'edgepath' + i })
+            .style("pointer-events", "none");
+
         node.append("title")
             .text(function(d) { return d.id; });
 
@@ -335,6 +204,151 @@ function drawCause(index, sdgTarget) {
         function ticked() {
             graph.factors_cause[index].nodes[0].fx = 0;
             graph.factors_cause[index].nodes[0].fy = 0;
+
+            link
+                .attr("x1", function(d) { return d.source.x; })
+                .attr("y1", function(d) { return d.source.y; })
+                .attr("x2", function(d) { return d.target.x; })
+                .attr("y2", function(d) { return d.target.y; })
+                .attr("transform", function(d) {
+                    return "translate(" + width / 2 + "," + height / 2 + ")";
+                });
+
+            node
+                .attr("cx", function(d) { return d.x; })
+                .attr("cy", function(d) { return d.y; })
+                .attr("transform", function(d) {
+                    return "translate(" + width / 2 + "," + height / 2 + ")";
+                });
+            text
+                .attr("x", function(d) { return d.x; })
+                .attr("y", function(d) { return d.y; })
+                .attr("transform", function(d) {
+                    return "translate(" + width / 2 + "," + height / 2 + ")";
+                });
+            edgepaths.attr('d', d => 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y);
+        }
+    });
+}
+
+function drawCause(index, sdgTarget) {
+
+    console.log("index =", index);
+
+    if (index == null) {
+        headContext = "Wrong SDG Target! Please check and fill again.";
+        var h3 = document.createElement('h3');
+        h3.innerHTML = headContext;
+        h3.setAttribute("style", "color: red");
+        head.appendChild(h3);
+    } else {
+        headContext = "Cause Tree of SDG " + sdgTarget;
+        var h3 = document.createElement('h3');
+        h3.innerHTML = headContext;
+        head.appendChild(h3);
+    }
+
+    var svg = d3.selectAll(".container").append("svg")
+        .attr("width", 1100)
+        .attr("height", 800);
+
+    svg.append('defs')
+        .append('marker')
+        .attr('id', "arrow0")
+        .attr('viewBox', '-0 -5 10 10')
+        .attr('refX', 23)
+        .attr('refY', 0)
+        .attr('orient', 'auto')
+        .attr('markerWidth', 10)
+        .attr('markerHeight', 10)
+        .attr('xoverflow', 'visible')
+        .append('svg:path')
+        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+        .attr('fill', colorLink(0))
+        .style('stroke', 'none');
+
+    svg.append('defs')
+        .append('marker')
+        .attr('id', "arrow1")
+        .attr('viewBox', '-0 -5 10 10')
+        .attr('refX', 23)
+        .attr('refY', 0)
+        .attr('orient', 'auto')
+        .attr('markerWidth', 10)
+        .attr('markerHeight', 10)
+        .attr('xoverflow', 'visible')
+        .append('svg:path')
+        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+        .attr('fill', colorLink(1))
+        .style('stroke', 'none');
+
+    svg.append('defs')
+        .append('marker')
+        .attr('id', "arrow2")
+        .attr('viewBox', '-0 -5 10 10')
+        .attr('refX', 23)
+        .attr('refY', 0)
+        .attr('orient', 'auto')
+        .attr('markerWidth', 10)
+        .attr('markerHeight', 10)
+        .attr('xoverflow', 'visible')
+        .append('svg:path')
+        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+        .attr('fill', colorLink(2))
+        .style('stroke', 'none');
+
+    d3.json(filename, function(error, graph) {
+        if (error) throw error;
+
+        var simulation = d3.forceSimulation()
+            .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(100))
+            .force("charge", d3.forceManyBody())
+            .force("center", d3.forceCenter(graph.factors_use[index].nodes[0].x, graph.factors_use[index].nodes[0].y))
+            .force("attraceForce", d3.forceManyBody().strength(-250))
+            .alphaMin(1);
+
+        var link = svg.append("g")
+            .attr("class", "links")
+            .selectAll("line")
+            .data(graph.factors_use[index].links)
+            .enter().append("line")
+            .attr('marker-end', function(d) { return "url(#arrow" + d.relation + ")"; })
+            .style("stroke", function(d) { return colorLink(d.relation); });
+
+        var node = svg.append("g")
+            .attr("class", "nodes")
+            .selectAll("circle")
+            .data(graph.factors_use[index].nodes)
+            .enter().append("circle")
+            .attr("r", 13)
+            .attr("fill", "#fff")
+            .style("stroke-width", 2)
+            .style("stroke", function(d) { return color(d.group + 1); });
+
+        // This is the label for each node
+        var text = svg.append("g").selectAll("text")
+            .data(graph.factors_use[index].nodes)
+            .enter().append("text")
+            .attr("dx", 0)
+            .attr("dy", 3)
+            .attr("font-size", "10px")
+            .text(function(d) { return d.id; })
+            .attr("text-anchor", "middle");
+
+        node.append("title")
+            .text(function(d) { return d.id; });
+
+        simulation
+            .nodes(graph.factors_use[index].nodes)
+            .on("tick", ticked);
+
+        simulation
+            .force("link")
+            .links(graph.factors_use[index].links);
+
+        function ticked() {
+            graph.factors_use[index].nodes[0].fx = 0;
+            graph.factors_use[index].nodes[0].fy = 0;
 
             link
                 .attr("x1", function(d) { return d.source.x; })
