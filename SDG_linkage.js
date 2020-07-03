@@ -60,7 +60,7 @@ function postData() {
     if (useOrcause == "use") {
         drawUse(findIndex(window.sdgTarget), sdgTarget);
     } else if (useOrcause == "cause") {
-        drawCause(findIndex(window.sdgTarget, sdgTarget));
+        drawCause(findIndex(window.sdgTarget), sdgTarget);
     }
 
     console.log(window.sdgTarget);
@@ -80,7 +80,7 @@ function findIndex(sdgTarget) {
 
 function drawUse(index, sdgTarget) {
 
-    console.log("index =", i);
+    console.log("index =", index);
 
     headContext = "Use Tree of SDG " + sdgTarget;
     var h3 = document.createElement('h3');
@@ -225,9 +225,9 @@ function drawUse(index, sdgTarget) {
     });
 }
 
-function drawCause(index) {
+function drawCause(index, sdgTarget) {
 
-    console.log("index =", i);
+    console.log("index =", index);
 
     headContext = "Cause Tree of SDG " + sdgTarget;
     var h3 = document.createElement('h3');
