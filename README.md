@@ -1,4 +1,4 @@
-# SDGs_tools
+# SDGs analysis tools
 
 [![hackmd-github-sync-badge](https://hackmd.io/Ye5CN--lQGivjffszA7iWA/badge)](https://hackmd.io/Ye5CN--lQGivjffszA7iWA)
 
@@ -18,4 +18,4 @@
 
 last update：109/6
 
-###### tags: `SDLab` `SDGs` `project` `javascript`
+###### tags: `SDLab` `SDGs` `project` `javascript` `d3.js`
