@@ -18,4 +18,4 @@
 
 last update：109/6
 
-###### tags: `SDLab` `SDGs` `project` `javascript` `d3.js`
+###### tags: `SDLab` `SDGs` `project` `javascript` `d3.js` `GitHub`
