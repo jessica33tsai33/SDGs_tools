@@ -2,6 +2,7 @@
 
 [![hackmd-github-sync-badge](https://hackmd.io/Ye5CN--lQGivjffszA7iWA/badge)](https://hackmd.io/Ye5CN--lQGivjffszA7iWA)
 
+網站連結：http://sdl.ae.ntu.edu.tw/SDGs_Tools/
 
 為了讓您了解SDGs之間如何互相影響，本介面工具「關鍵子目標互動系統」藉由以下幾個功能，幫助您找尋和您所關心的SDGs子目標之相關內容，並且深入理解其實際內涵，以便於促進決策過程中相關SDGs子目標間的協同作用，減少權衡關係：
 
